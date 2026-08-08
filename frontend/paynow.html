@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Paiement | AlphaIT</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="vendor/bootstrap-icons/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://js.stripe.com/v3/"></script>
+</head>
+<body>
+
+  <!-- ================= NAVBAR ================= -->
+  <nav class="navbar navbar-expand-lg navbar-alphait sticky-top">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">Alpha<span>IT</span></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navMenu">
+        <ul class="navbar-nav ms-auto align-items-lg-center">
+          <li class="nav-item"><a class="nav-link" href="index.html">Accueil</a></li>
+          <li class="nav-item"><a class="nav-link" href="about.html">À propos</a></li>
+          <li class="nav-item"><a class="nav-link" href="pricing.html">Tarifs</a></li>
+          <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+          <li class="nav-item"><a class="nav-link" href="signin.html">Connexion</a></li>
+          <li class="nav-item">
+            <a class="nav-link d-none" href="admin.html" id="adminNavLink">
+              <i class="bi bi-speedometer2 me-1"></i>Tableau de bord
+            </a>
+          </li>
+          <li class="nav-item ms-lg-2">
+  <button class="theme-toggle-btn" id="themeToggleBtn" title="Changer de thème">
+    <i class="bi bi-moon-stars"></i>
+  </button>
+</li>
+          <li class="nav-item ms-lg-2 mt-2 mt-lg-0">
+            <a class="btn btn-alphait-accent active" href="paynow.html">Payer maintenant</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ================= EN-TETE ================= -->
+  <header class="hero-alphait" style="padding: 4rem 0;">
+    <div class="container">
+      <div class="eyebrow mb-3">Paiement</div>
+      <h1 class="mb-3">Finalisez votre commande</h1>
+      <p class="lead mb-0">Vérifiez les services sélectionnés et procédez au paiement sécurisé.</p>
+    </div>
+  </header>
+
+  <!-- ================= CONTENU PRINCIPAL ================= -->
+  <section class="py-5">
+    <div class="container">
+      <div class="row g-4 justify-content-center">
+
+        <!-- -------- Récapitulatif de commande -------- -->
+        <div class="col-lg-5">
+          <div class="testimonial-card h-100" style="border-left: none; border-top: 4px solid var(--alphait-accent);">
+            <h5 class="mb-4">Résumé de la commande</h5>
+            <ul id="orderList" class="list-unstyled mb-3">
+              <li class="text-muted small">Chargement de votre sélection...</li>
+            </ul>
+            <div class="d-flex justify-content-between align-items-center border-top pt-3">
+              <span class="fw-semibold">Total à payer</span>
+              <span class="fs-3 fw-bold text-accent" id="orderTotal">0 $</span>
+            </div>
+            <a href="pricing.html" class="small d-block mt-3">
+              <i class="bi bi-arrow-left me-1"></i>Modifier ma sélection
+            </a>
+          </div>
+        </div>
+
+        <!-- -------- Formulaire de paiement -------- -->
+        <div class="col-lg-6">
+          <div class="testimonial-card h-100" style="border-left: none; border-top: 4px solid var(--alphait-accent);">
+            <h5 class="mb-4">Mode de paiement</h5>
+
+            <!-- Choix du fournisseur de paiement -->
+            <div class="btn-group w-100 mb-4" role="group">
+              <input type="radio" class="btn-check" name="payMethod" id="payStripe" checked>
+              <label class="btn btn-outline-secondary" for="payStripe">
+                <i class="bi bi-credit-card me-1"></i> Carte (Stripe)
+              </label>
+
+              <input type="radio" class="btn-check" name="payMethod" id="payPaypal">
+              <label class="btn btn-outline-secondary" for="payPaypal">
+                <i class="bi bi-paypal me-1"></i> PayPal
+              </label>
+            </div>
+
+            <!-- Alerte de confirmation / erreur -->
+            <div class="alert d-none" id="paymentAlert" role="alert"></div>
+
+            <!-- Formulaire carte (Stripe) -->
+            <form id="paymentForm" novalidate>
+              <div id="stripeFields">
+                <div class="mb-3">
+                  <label for="cardName" class="form-label">Nom sur la carte</label>
+                  <input type="text" class="form-control" id="cardName" required>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Informations de carte</label>
+                  <div id="card-element" class="form-control" style="height: auto; padding: 0.75rem;"></div>
+                  <div id="card-errors" class="text-danger small mt-2"></div>
+                </div>
+              </div>
+
+              <!-- Message affiché si PayPal est sélectionné -->
+              <div id="paypalFields" class="d-none text-center py-4">
+                <i class="bi bi-paypal" style="font-size: 3rem; color: var(--alphait-accent);"></i>
+                <p class="text-muted small mt-2">Vous serez redirigé vers PayPal pour finaliser le paiement.</p>
+              </div>
+
+              <button type="submit" class="btn btn-alphait-accent btn-lg w-100 mt-4" id="submitPayBtn">
+                <i class="bi bi-lock-fill me-2"></i>Payer maintenant
+              </button>
+            </form>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= MODAL: confirmation de paiement ================= -->
+  <div class="modal fade" id="confirmModal" tabindex="-1" data-bs-backdrop="static" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content text-center p-4">
+        <div class="modal-body">
+          <i class="bi bi-check-circle-fill" style="font-size: 4rem; color: var(--alphait-accent);"></i>
+          <h4 class="mt-3">Paiement confirmé</h4>
+          <p class="text-muted">
+            Merci pour votre confiance. Une confirmation a été envoyée à votre adresse courriel.
+             <br><span class="text-warning">Pensez à vérifier vos courriels indésirables (spam).</span>
+</p>
+          </p>
+          <p class="small text-muted mb-4">Numéro de transaction : <strong id="transactionId">-</strong></p>
+<button class="btn btn-alphait-outline w-100 mb-2" id="downloadReceiptBtn">
+  <i class="bi bi-download me-2"></i>Télécharger le reçu (PDF)
+</button>
+<a href="index.html" class="btn btn-alphait-accent w-100">Retour à l'accueil</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="footer-alphait">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-md-4">
+          <h5>Alpha<span class="text-accent">IT</span></h5>
+          <p class="small">Des solutions informatiques fiables pour les entreprises qui veulent avancer sereinement.</p>
+        </div>
+        <div class="col-md-4">
+          <h5>Navigation</h5>
+          <ul class="list-unstyled">
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="about.html">À propos</a></li>
+            <li><a href="pricing.html">Tarifs</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="col-md-4">
+          <h5>Contact</h5>
+          <ul class="list-unstyled small">
+            <li><i class="bi bi-envelope me-2"></i>contact@alphait.com</li>
+            <li><i class="bi bi-telephone me-2"></i>+509 5595-8911</li>
+            <li><i class="bi bi-geo-alt me-2"></i>Limonade, Haïti</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom text-center">
+        &copy; 2026 AlphaIT. Tous droits réservés.
+      </div>
+    </div>
+  </footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="js/nav-guard.js"></script>
+  <script src="js/dark-mode.js"></script>
+  <script src="js/payment.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,345 @@
+/* ============================================
+   ALPHAIT - Feuille de style personnalisée
+   Palette : Navy profond + accent teal
+   ============================================ */
+
+:root {
+  --alphait-navy: #0F1B2D;
+  --alphait-navy-light: #16283F;
+  --alphait-accent: #2DD4BF;
+  --alphait-accent-dark: #14B8A6;
+  --alphait-bg-light: #F5F7FA;
+  --alphait-text: #1A1F2B;
+  --alphait-text-muted: #6B7280;
+  --font-display: 'Space Grotesk', sans-serif;
+  --font-body: 'Inter', sans-serif;
+}
+/* ---------- MODE SOMBRE ---------- */
+[data-theme="dark"] {
+  --alphait-bg-light: #16202E;
+  --alphait-text: #E8ECF3;
+  --alphait-text-muted: #9CA6B5;
+}
+
+[data-theme="dark"] body {
+  background-color: #0F1620;
+  color: var(--alphait-text);
+}
+
+[data-theme="dark"] .bg-white,
+[data-theme="dark"] .service-card,
+[data-theme="dark"] .testimonial-card,
+[data-theme="dark"] .stat-card {
+  background-color: #1A2434 !important;
+  border-color: #2A3548 !important;
+  color: var(--alphait-text);
+}
+
+[data-theme="dark"] .text-dark {
+  color: var(--alphait-text) !important;
+}
+
+[data-theme="dark"] .text-muted {
+  color: var(--alphait-text-muted) !important;
+}
+
+[data-theme="dark"] .form-control,
+[data-theme="dark"] .form-select {
+  background-color: #1A2434;
+  border-color: #2A3548;
+  color: var(--alphait-text);
+}
+
+[data-theme="dark"] .form-control::placeholder {
+  color: var(--alphait-text-muted);
+}
+
+[data-theme="dark"] .table {
+  color: var(--alphait-text);
+}
+
+[data-theme="dark"] .table > :not(caption) > * > * {
+  background-color: transparent;
+  color: var(--alphait-text);
+  border-color: #2A3548;
+}
+
+[data-theme="dark"] .footer-bottom {
+  border-color: rgba(255,255,255,0.08);
+}
+
+.theme-toggle-btn {
+  background: transparent;
+  border: 1.5px solid rgba(255,255,255,0.3);
+  color: white;
+  border-radius: 6px;
+  width: 38px;
+  height: 38px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease;
+}
+
+.theme-toggle-btn:hover {
+  background-color: rgba(45,212,191,0.15);
+  color: var(--alphait-accent);
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--alphait-text);
+  background-color: #ffffff;
+}
+
+h1, h2, h3, h4, h5, .navbar-brand, .display-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+}
+
+/* ---------- NAVBAR ---------- */
+.navbar-alphait {
+  background-color: var(--alphait-navy);
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+.navbar-alphait .navbar-toggler {
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.navbar-alphait .navbar-toggler-icon {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%2845, 212, 191, 1%29' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+.navbar-alphait .navbar-brand {
+  color: #ffffff;
+  font-size: 1.5rem;
+  letter-spacing: 0.5px;
+}
+
+.navbar-alphait .navbar-brand span {
+  color: var(--alphait-accent);
+}
+
+.navbar-alphait .nav-link {
+  color: rgba(255, 255, 255, 0.85);
+  font-weight: 500;
+  margin-left: 0.5rem;
+  transition: color 0.2s ease;
+}
+
+.navbar-alphait .nav-link:hover,
+.navbar-alphait .nav-link.active {
+  color: var(--alphait-accent);
+}
+
+.btn-alphait-accent {
+  background-color: var(--alphait-accent);
+  border: none;
+  color: var(--alphait-navy);
+  font-weight: 600;
+  padding: 0.55rem 1.4rem;
+  border-radius: 6px;
+  transition: background-color 0.2s ease, transform 0.15s ease;
+}
+
+.btn-alphait-accent:hover {
+  background-color: var(--alphait-accent-dark);
+  color: var(--alphait-navy);
+  transform: translateY(-2px);
+}
+
+.btn-alphait-outline {
+  border: 1.5px solid var(--alphait-accent);
+  color: var(--alphait-accent);
+  font-weight: 600;
+  padding: 0.55rem 1.4rem;
+  border-radius: 6px;
+  background: transparent;
+  transition: all 0.2s ease;
+}
+
+.btn-alphait-outline:hover {
+  background-color: var(--alphait-accent);
+  color: var(--alphait-navy);
+}
+
+/* ---------- HERO ---------- */
+.hero-alphait {
+  background: linear-gradient(160deg, var(--alphait-navy) 0%, var(--alphait-navy-light) 100%);
+  color: #ffffff;
+  padding: 6rem 0 7rem 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-alphait::before {
+  content: "";
+  position: absolute;
+  top: -100px;
+  right: -100px;
+  width: 400px;
+  height: 400px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(45, 212, 191, 0.15) 0%, transparent 70%);
+}
+
+.hero-alphait .eyebrow {
+  color: var(--alphait-accent);
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+}
+
+.hero-alphait h1 {
+  font-size: 3rem;
+  line-height: 1.15;
+}
+
+.hero-alphait p.lead {
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 1.15rem;
+  max-width: 550px;
+}
+
+/* ---------- SERVICES ---------- */
+.section-label {
+  color: var(--alphait-accent-dark);
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+}
+
+.service-card {
+  border: 1px solid #E5E9F0;
+  border-radius: 10px;
+  padding: 2rem 1.75rem;
+  height: 100%;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  background: #ffffff;
+}
+
+.service-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 30px rgba(15, 27, 45, 0.1);
+  border-color: var(--alphait-accent);
+}
+
+.service-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 10px;
+  background-color: var(--alphait-navy);
+  color: var(--alphait-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  margin-bottom: 1.2rem;
+}
+
+/* ---------- TEMOIGNAGES ---------- */
+.section-dark {
+  background-color: var(--alphait-bg-light);
+}
+
+.testimonial-card {
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 2.5rem;
+  border-left: 4px solid var(--alphait-accent);
+}
+
+.testimonial-card .quote-mark {
+  font-family: var(--font-display);
+  font-size: 3rem;
+  color: var(--alphait-accent);
+  line-height: 1;
+}
+
+/* ---------- CAROUSEL CONTROLS (flèches) ---------- */
+.carousel-control-prev,
+.carousel-control-next {
+  width: 5%;
+  opacity: 1;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  width: 2.75rem;
+  height: 2.75rem;
+  background-color: var(--alphait-navy);
+  border-radius: 50%;
+  background-size: 45% 45%;
+  filter: none;
+  box-shadow: 0 4px 12px rgba(15, 27, 45, 0.25);
+  transition: background-color 0.2s ease;
+}
+
+.carousel-control-prev-icon:hover,
+.carousel-control-next-icon:hover {
+  background-color: var(--alphait-accent-dark);
+}
+
+.carousel-indicators [data-bs-target] {
+  background-color: var(--alphait-navy);
+}
+
+/* ---------- FOOTER ---------- */
+.footer-alphait {
+  background-color: var(--alphait-navy);
+  color: rgba(255, 255, 255, 0.65);
+  padding: 3rem 0 1.5rem 0;
+}
+
+.footer-alphait a {
+  color: rgba(255, 255, 255, 0.65);
+  text-decoration: none;
+}
+
+.footer-alphait a:hover {
+  color: var(--alphait-accent);
+}
+
+.footer-alphait h5 {
+  color: #ffffff;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+.footer-bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  font-size: 0.85rem;
+}
+
+/* ---------- UTILS ---------- */
+.text-accent {
+  color: var(--alphait-accent);
+}
+/* ---------- CHECKBOX SERVICES (pricing.html) ---------- */
+.service-checkbox {
+  width: 1.4em;
+  height: 1.4em;
+  border: 2px solid var(--alphait-navy);
+  cursor: pointer;
+}
+
+.service-checkbox:checked {
+  background-color: var(--alphait-accent);
+  border-color: var(--alphait-accent);
+}
+
+.service-checkbox:focus {
+  border-color: var(--alphait-accent);
+  box-shadow: 0 0 0 0.2rem rgba(45, 212, 191, 0.35);
+}
+
+@media (max-width: 768px) {
+  .hero-alphait h1 {
+    font-size: 2.1rem;
+  }
+}

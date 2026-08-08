@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tableau de bord | AlphaIT</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="vendor/bootstrap-icons/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="css/style.css">
+
+  <style>
+    .admin-sidebar {
+      background-color: var(--alphait-navy);
+      min-height: 100vh;
+    }
+    .admin-sidebar .nav-link {
+      color: rgba(255,255,255,0.75);
+      padding: 0.75rem 1.25rem;
+      border-radius: 8px;
+      margin-bottom: 0.25rem;
+    }
+    .admin-sidebar .nav-link:hover,
+    .admin-sidebar .nav-link.active {
+      background-color: rgba(45,212,191,0.15);
+      color: var(--alphait-accent);
+    }
+    .stat-card {
+      border: 1px solid #E5E9F0;
+      border-radius: 10px;
+      padding: 1.5rem;
+      background: #fff;
+    }
+    .table-actions button {
+      padding: 0.25rem 0.6rem;
+      font-size: 0.8rem;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="d-flex">
+
+    <!-- ================= SIDEBAR ================= -->
+    <nav class="admin-sidebar p-3" style="width: 250px; flex-shrink: 0;">
+      <a href="index.html" class="navbar-brand d-block mb-4 px-2">Alpha<span class="text-accent">IT</span></a>
+
+      <ul class="nav flex-column" id="adminTabs">
+        <li class="nav-item">
+          <button class="nav-link active w-100 text-start border-0 bg-transparent" data-target="clients">
+            <i class="bi bi-people me-2"></i>Clients
+          </button>
+        </li>
+        <li class="nav-item">
+          <button class="nav-link w-100 text-start border-0 bg-transparent" data-target="services">
+            <i class="bi bi-box-seam me-2"></i>Services
+          </button>
+        </li>
+        <li class="nav-item">
+          <button class="nav-link w-100 text-start border-0 bg-transparent" data-target="paiements">
+            <i class="bi bi-credit-card me-2"></i>Paiements
+          </button>
+        </li>
+        <li class="nav-item">
+  <button class="nav-link w-100 text-start border-0 bg-transparent" data-target="messages">
+    <i class="bi bi-envelope me-2"></i>Messages
+  </button>
+</li>
+<li class="nav-item">
+  <button class="nav-link w-100 text-start border-0 bg-transparent" data-target="temoignages">
+    <i class="bi bi-chat-left-text me-2"></i>Témoignages
+  </button>
+</li>
+<li class="nav-item">
+  <button class="nav-link w-100 text-start border-0 bg-transparent" data-target="admins">
+    <i class="bi bi-shield-lock me-2"></i>Administrateurs
+  </button>
+</li>
+
+<li class="nav-item">
+  <button class="nav-link w-100 text-start border-0 bg-transparent" data-target="stats">
+    <i class="bi bi-bar-chart me-2"></i>Statistiques
+  </button>
+</li>
+        </li>
+        <li class="nav-item mt-4">
+          <button class="nav-link w-100 text-start border-0 bg-transparent" id="logoutBtn">
+            <i class="bi bi-box-arrow-right me-2"></i>Déconnexion
+          </button>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- ================= CONTENU ================= -->
+    <main class="flex-grow-1 p-4" style="background-color: var(--alphait-bg-light); min-height: 100vh;">
+
+      <div class="alert d-none" id="adminAlert" role="alert"></div>
+
+      <!-- ---------- CLIENTS ---------- -->
+      <section id="section-clients" class="admin-section">
+        <h3 class="mb-4">Gestion des clients</h3>
+        <div class="table-responsive stat-card">
+          <table class="table align-middle mb-0">
+            <thead>
+              <tr>
+                <th>Nom</th>
+                <th>Courriel</th>
+                <th>Téléphone</th>
+                <th>Entreprise</th>
+                <th>Statut</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="clientsTableBody">
+              <tr><td colspan="6" class="text-muted">Chargement...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ---------- SERVICES ---------- -->
+      <section id="section-services" class="admin-section d-none">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <h3 class="mb-0">Gestion des services</h3>
+          <button class="btn btn-alphait-accent" data-bs-toggle="modal" data-bs-target="#serviceModal" id="newServiceBtn">
+            <i class="bi bi-plus-lg me-1"></i>Nouveau service
+          </button>
+        </div>
+        <div class="table-responsive stat-card">
+          <table class="table align-middle mb-0">
+            <thead>
+              <tr>
+                <th>Nom</th>
+                <th>Catégorie</th>
+                <th>Prix</th>
+                <th>Statut</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="servicesTableBody">
+              <tr><td colspan="5" class="text-muted">Chargement...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ---------- PAIEMENTS ---------- -->
+      <section id="section-paiements" class="admin-section d-none">
+        <h3 class="mb-4">Historique des paiements</h3>
+        <div class="table-responsive stat-card">
+          <table class="table align-middle mb-0">
+            <thead>
+              <tr>
+                <th>Client</th>
+                <th>Montant</th>
+                <th>Mode</th>
+                <th>Transaction</th>
+                <th>Date</th>
+                <th>Statut</th>
+              </tr>
+            </thead>
+            <tbody id="paiementsTableBody">
+              <tr><td colspan="6" class="text-muted">Chargement...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ---------- MESSAGES ---------- -->
+      <section id="section-messages" class="admin-section d-none">
+        <h3 class="mb-4">Messages reçus</h3>
+        <div class="table-responsive stat-card">
+          <table class="table align-middle mb-0">
+            <thead>
+              <tr>
+                <th>Nom</th>
+                <th>Courriel</th>
+                <th>Sujet</th>
+                <th>Message</th>
+                <th>Date</th>
+              </tr>
+            </thead>
+            <tbody id="messagesTableBody">
+              <tr><td colspan="5" class="text-muted">Chargement...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+      </section> <!-- Fen Seksyon Messages -->
+
+<!-- NOUVO TABLO A PLASE LA -->
+<section id="section-temoignages" class="admin-section d-none">
+  <h3 class="mb-4">Gestion des témoignages</h3>
+  <div class="table-responsive stat-card">
+    <table class="table align-middle mb-0">
+      <thead>
+        <tr>
+          <th>Auteur</th>
+          <th>Note</th>
+          <th>Commentaire</th>
+          <th>Statut</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="temoignagesTableBody">
+        <tr><td colspan="5" class="text-muted">Chargement...</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+      <section id="section-admins" class="admin-section d-none">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h3 class="mb-0">Gestion des administrateurs</h3>
+    <button class="btn btn-alphait-accent" data-bs-toggle="modal" data-bs-target="#adminModal">
+      <i class="bi bi-plus-lg me-1"></i>Nouvel administrateur
+    </button>
+  </div>
+  <div class="table-responsive stat-card">
+    <table class="table align-middle mb-0">
+      <thead>
+        <tr><th>Nom</th><th>Courriel</th><th>Fonction</th><th>Date de création</th></tr>
+      </thead>
+      <tbody id="adminsTableBody">
+        <tr><td colspan="4" class="text-muted">Chargement...</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ---------- STATISTIQUES ---------- -->
+<section id="section-stats" class="admin-section d-none">
+  <h3 class="mb-4">Statistiques</h3>
+  <div class="row g-4">
+    <div class="col-lg-6">
+      <div class="stat-card">
+        <h6 class="mb-3">Paiements par mode</h6>
+        <canvas id="chartModePaiement" height="220"></canvas>
+      </div>
+    </div>
+    <div class="col-lg-6">
+      <div class="stat-card">
+        <h6 class="mb-3">Services les plus vendus</h6>
+        <canvas id="chartServices" height="220"></canvas>
+      </div>
+    </div>
+  </div>
+</section>
+
+    </main>
+  </div>
+
+  <!-- ================= MODAL: ajouter/modifier un service ================= -->
+  <div class="modal fade" id="serviceModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="serviceModalTitle">Nouveau service</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <form id="serviceForm">
+            <input type="hidden" id="serviceId">
+            <div class="mb-3">
+              <label class="form-label">Nom du service</label>
+              <input type="text" class="form-control" id="serviceNom" required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Description</label>
+              <textarea class="form-control" id="serviceDescription" rows="2"></textarea>
+            </div>
+            <div class="row g-3">
+              <div class="col-6">
+                <label class="form-label">Prix ($)</label>
+                <input type="number" step="0.01" class="form-control" id="servicePrix" required>
+              </div>
+              <div class="col-6">
+                <label class="form-label">Catégorie</label>
+                <input type="text" class="form-control" id="serviceCategorie">
+              </div>
+            </div>
+            <button type="submit" class="btn btn-alphait-accent w-100 mt-4">Enregistrer</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="adminModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Nouvel administrateur</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <form id="adminForm">
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label">Nom</label>
+              <input type="text" class="form-control" id="adminNom" required>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Prénom</label>
+              <input type="text" class="form-control" id="adminPrenom" required>
+            </div>
+            <div class="col-12">
+              <label class="form-label">Courriel</label>
+              <input type="email" class="form-control" id="adminEmail" required>
+            </div>
+            <div class="col-12">
+              <label class="form-label">Mot de passe</label>
+              <input type="password" class="form-control" id="adminPassword" required minlength="6">
+            </div>
+            <div class="col-12">
+              <label class="form-label">Fonction</label>
+              <input type="text" class="form-control" id="adminFonction" placeholder="Ex: Responsable technique">
+            </div>
+            <div class="col-12 mt-2">
+              <button type="submit" class="btn btn-alphait-accent w-100">Créer l'administrateur</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="js/admin.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>À propos | AlphaIT</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="vendor/bootstrap-icons/bootstrap-icons.min.css">
+
+  <!-- CSS personnalisé -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ================= NAVBAR ================= -->
+  <nav class="navbar navbar-expand-lg navbar-alphait sticky-top">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">Alpha<span>IT</span></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navMenu">
+        <ul class="navbar-nav ms-auto align-items-lg-center">
+          <li class="nav-item"><a class="nav-link" href="index.html">Accueil</a></li>
+          <li class="nav-item"><a class="nav-link active" href="about.html">À propos</a></li>
+          <li class="nav-item"><a class="nav-link" href="pricing.html">Tarifs</a></li>
+          <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+          <li class="nav-item"><a class="nav-link" href="signin.html">Connexion</a></li>
+          <li class="nav-item">
+  <a class="nav-link d-none" href="admin.html" id="adminNavLink">
+    <i class="bi bi-speedometer2 me-1"></i>Tableau de bord
+  </a>
+</li>
+<li class="nav-item ms-lg-2">
+  <button class="theme-toggle-btn" id="themeToggleBtn" title="Changer de thème">
+    <i class="bi bi-moon-stars"></i>
+  </button>
+</li>
+          <li class="nav-item ms-lg-2 mt-2 mt-lg-0">
+            <a class="btn btn-alphait-accent" href="paynow.html">Payer maintenant</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ================= EN-TETE DE PAGE ================= -->
+  <header class="hero-alphait" style="padding: 4rem 0;">
+    <div class="container">
+      <div class="eyebrow mb-3">À propos de nous</div>
+      <h1 class="mb-3">L'humain derrière la technologie</h1>
+      <p class="lead mb-0">Depuis notre création, AlphaIT accompagne les entreprises dans leur transformation numérique avec rigueur et proximité.</p>
+    </div>
+  </header>
+
+  <!-- ================= HISTORIQUE ================= -->
+  <section class="py-5">
+    <div class="container">
+      <div class="row align-items-center g-5">
+        <div class="col-lg-6">
+          <div class="section-label">Notre histoire</div>
+          <h2 class="mt-2 mb-3">Comment tout a commencé</h2>
+          <p class="text-muted">
+            AlphaIT est née de la volonté de rendre les technologies de l'information accessibles
+            aux entreprises locales, sans compromis sur la qualité ni la sécurité. Ce qui a débuté comme
+            une petite équipe de passionnés s'est transformé en un partenaire technique de confiance
+            pour des dizaines de clients.
+          </p>
+          <p class="text-muted mb-0">
+            Aujourd'hui, nous combinons expertise en développement, en gestion de données et en
+            cybersécurité pour offrir des solutions complètes, adaptées aux réalités de chaque entreprise
+            que nous accompagnons.
+          </p>
+        </div>
+        <div class="col-lg-6 text-center">
+          <i class="bi bi-diagram-3" style="font-size: 12rem; color: var(--alphait-accent);"></i>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= MISSION / VISION / VALEURS ================= -->
+  <section class="section-dark py-5">
+    <div class="container py-3">
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="service-card h-100">
+            <div class="service-icon"><i class="bi bi-bullseye"></i></div>
+            <h5>Notre mission</h5>
+            <p class="text-muted small mb-0">
+              Offrir des solutions informatiques fiables et sur mesure qui permettent à chaque
+              entreprise de fonctionner efficacement et en toute sécurité.
+            </p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="service-card h-100">
+            <div class="service-icon"><i class="bi bi-eye"></i></div>
+            <h5>Notre vision</h5>
+            <p class="text-muted small mb-0">
+              Devenir la référence en solutions technologiques pour les entreprises,
+              reconnue pour sa rigueur, son innovation et sa proximité avec ses clients.
+            </p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="service-card h-100">
+            <div class="service-icon"><i class="bi bi-gem"></i></div>
+            <h5>Nos valeurs</h5>
+            <p class="text-muted small mb-0">
+              Intégrité, rigueur technique, transparence avec nos clients, et amélioration continue
+              dans tout ce que nous livrons.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= EQUIPE ================= -->
+  <section class="py-5">
+    <div class="container">
+      <div class="text-center mb-5">
+        <div class="section-label">L'équipe</div>
+        <h2 class="mt-2">Les personnes derrière AlphaIT</h2>
+      </div>
+      <div class="row g-4 justify-content-center">
+
+        <div class="col-md-4 col-lg-3 text-center">
+          <img src="equipe1.jpg" alt="Djemara Amicy"
+               class="rounded-circle mb-3" style="width:100px; height:100px; object-fit:cover;">
+          <h6 class="mb-0 fw-bold">AMICY Djemara</h6>
+          <p class="text-accent small mb-1">Développeuse Full-Stack</p>
+          <p class="text-muted small">Front-end & back-end</p>
+        </div>
+
+        <div class="col-md-4 col-lg-3 text-center">
+          <img src="equipe2.jpg" alt="Rosener Pierre"
+               class="rounded-circle mb-3" style="width:100px; height:100px; object-fit:cover;">
+          <h6 class="mb-0 fw-bold">PIERRE Rosener</h6>
+          <p class="text-accent small mb-1">Administrateur BD</p>
+          <p class="text-muted small">Conception & gestion des données</p>
+        </div>
+
+        <div class="col-md-4 col-lg-3 text-center">
+          <img src="equipe3.png" alt="Sonthonax Derose"
+               class="rounded-circle mb-3" style="width:100px; height:100px; object-fit:cover;">
+          <h6 class="mb-0 fw-bold">DEROSE Sonthonax</h6>
+          <p class="text-accent small mb-1">Spécialiste Sécurité</p>
+          <p class="text-muted small">Audit & protection des systèmes</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= COMPETENCES ================= -->
+  <section class="section-dark py-5">
+    <div class="container py-3">
+      <div class="text-center mb-5">
+        <div class="section-label">Expertise</div>
+        <h2 class="mt-2">Compétences techniques</h2>
+      </div>
+      <div class="row g-3 justify-content-center">
+        <div class="col-auto"><span class="badge bg-white text-dark border px-3 py-2">HTML5 / CSS3</span></div>
+        <div class="col-auto"><span class="badge bg-white text-dark border px-3 py-2">JavaScript</span></div>
+        <div class="col-auto"><span class="badge bg-white text-dark border px-3 py-2">Bootstrap</span></div>
+        <div class="col-auto"><span class="badge bg-white text-dark border px-3 py-2">Node.js / Express</span></div>
+        <div class="col-auto"><span class="badge bg-white text-dark border px-3 py-2">MySQL</span></div>
+        <div class="col-auto"><span class="badge bg-white text-dark border px-3 py-2">Sécurité informatique</span></div>
+        <div class="col-auto"><span class="badge bg-white text-dark border px-3 py-2">Git / GitHub</span></div>
+        <div class="col-auto"><span class="badge bg-white text-dark border px-3 py-2">Stripe / PayPal API</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="footer-alphait">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-md-4">
+          <h5>Alpha<span class="text-accent">IT</span></h5>
+          <p class="small">Des solutions informatiques fiables pour les entreprises qui veulent avancer sereinement.</p>
+        </div>
+        <div class="col-md-4">
+          <h5>Navigation</h5>
+          <ul class="list-unstyled">
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="pricing.html">Tarifs</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="signin.html">Connexion</a></li>
+          </ul>
+        </div>
+        <div class="col-md-4">
+          <h5>Contact</h5>
+          <ul class="list-unstyled small">
+            <li><i class="bi bi-envelope me-2"></i>contact@alphait.com</li>
+            <li><i class="bi bi-telephone me-2"></i>+509 5595-8911</li>
+            <li><i class="bi bi-geo-alt me-2"></i>Limonade, Haïti</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom text-center">
+        &copy; 2026 AlphaIT. Tous droits réservés.
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS -->
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="js/nav-guard.js"></script>
+  <script src="js/dark-mode.js"></script>
+</body>
+</html>

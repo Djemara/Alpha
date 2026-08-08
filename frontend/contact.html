@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact | AlphaIT</title>
+
+  <link rel="preconnect" href="https://googleapis.com">
+  <link href="https://googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="vendor/bootstrap-icons/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ================= NAVBAR ================= -->
+  <nav class="navbar navbar-expand-lg navbar-alphait sticky-top">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">Alpha<span>IT</span></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navMenu">
+        <ul class="navbar-nav ms-auto align-items-lg-center">
+          <li class="nav-item"><a class="nav-link" href="index.html">Accueil</a></li>
+          <li class="nav-item"><a class="nav-link" href="about.html">À propos</a></li>
+          <li class="nav-item"><a class="nav-link" href="pricing.html">Tarifs</a></li>
+          <li class="nav-item"><a class="nav-link active" href="contact.html">Contact</a></li>
+          <li class="nav-item"><a class="nav-link" href="signin.html">Connexion</a></li>
+          <li class="nav-item">
+            <a class="nav-link d-none" href="admin.html" id="adminNavLink">
+              <i class="bi bi-speedometer2 me-1"></i>Tableau de bord
+            </a>
+          </li>
+          <li class="nav-item ms-lg-2">
+            <button class="theme-toggle-btn" id="themeToggleBtn" title="Changer de thème">
+              <i class="bi bi-moon-stars"></i>
+            </button>
+          </li>
+          <li class="nav-item ms-lg-2 mt-2 mt-lg-0">
+            <a class="btn btn-alphait-accent" href="paynow.html">Payer maintenant</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ================= EN-TETE ================= -->
+  <header class="hero-alphait" style="padding: 4rem 0;">
+    <div class="container">
+      <div class="eyebrow mb-3">Contact</div>
+      <h1 class="mb-3">Parlons de votre projet</h1>
+      <p class="lead mb-0">Une question, un besoin précis ? Écrivez-nous, nous vous répondrons rapidement.</p>
+    </div>
+  </header>
+
+  <!-- ================= FORMULAIRES DE CONTACT ET AVIS ================= -->
+  <section class="py-5">
+    <div class="container">
+      <div class="row g-5">
+
+        <!-- KOLÒN AGOCH: PARLONS DE VOTRE PROJET -->
+        <div class="col-lg-6">
+          <div class="p-4 bg-white rounded shadow-sm">
+            <h2 class="h4 mb-4 fw-bold">Parlons de votre projet</h2>
+            
+            <!-- Message de confirmation (masqué par défaut) -->
+            <div class="alert alert-success d-none" id="successAlert" role="alert">
+              <i class="bi bi-check-circle me-2"></i>
+              Votre message a bien été envoyé. Nous vous répondrons sous peu.
+            </div>
+
+            <form id="contactForm" novalidate>
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label for="nom" class="form-label">Nom</label>
+                  <input type="text" class="form-control" id="nom" name="nom" required>
+                  <div class="invalid-feedback">Veuillez indiquer votre nom.</div>
+                </div>
+                <div class="col-md-6">
+                  <label for="prenom" class="form-label">Prénom</label>
+                  <input type="text" class="form-control" id="prenom" name="prenom" required>
+                  <div class="invalid-feedback">Veuillez indiquer votre prénom.</div>
+                </div>
+                <div class="col-md-6">
+                  <label for="email" class="form-label">Courriel</label>
+                  <input type="email" class="form-control" id="email" name="email" required>
+                  <div class="invalid-feedback">Veuillez indiquer un courriel valide.</div>
+                </div>
+                <div class="col-md-6">
+                  <label for="telephone" class="form-label">Téléphone</label>
+                  <input type="tel" class="form-control" id="telephone" name="telephone" required>
+                  <div class="invalid-feedback">Veuillez indiquer votre numéro de téléphone.</div>
+                </div>
+                <div class="col-12">
+                  <label for="sujet" class="form-label">Sujet</label>
+                  <input type="text" class="form-control" id="sujet" name="sujet" required>
+                  <div class="invalid-feedback">Veuillez indiquer un sujet.</div>
+                </div>
+                <div class="col-12">
+                  <label for="message" class="form-label">Message</label>
+                  <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
+                  <div class="invalid-feedback">Veuillez écrire votre message.</div>
+                </div>
+                <div class="col-12 mt-4">
+                  <button type="submit" class="btn btn-alphait-accent btn-lg w-100">
+                    Envoyer le message
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- KOLÒN ADWAT: LAISSER UN AVIS -->
+        <div class="col-lg-6">
+          <div class="testimonial-card p-4 rounded shadow-sm" style="background-color: var(--bs-light, #f8f9fa);">
+            <h2 class="h4 mb-4 fw-bold">Laisser un avis</h2>
+            
+            <!-- Mesaj k ap parèt si l pa konekte (masqué par défaut) -->
+            <div id="mesajConnexionAvis" class="alert alert-warning text-center d-none" role="alert">
+              <i class="bi bi-exclamation-circle me-2"></i>
+              Vous devez <a href="signin.html" class="alert-link">vous connecter</a> pour laisser un avis.
+            </div>
+            
+            <div class="alert d-none" id="avisAlert" role="alert"></div>
+            
+            <form id="avisForm">
+              <div class="row g-3 mb-3">
+                <div class="col-md-6">
+                  <label class="form-label">Nom</label>
+                  <input type="text" class="form-control" id="avisNom" required>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">Prénom</label>
+                  <input type="text" class="form-control" id="avisPrenom">
+                </div>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Votre note</label>
+                <select class="form-select" id="avisNote" required>
+                  <option value="5">Excellent</option>
+                  <option value="4">Très bien</option>
+                  <option value="3">Bien</option>
+                  <option value="2">Moyen</option>
+                  <option value="1">Décevant</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Votre commentaire</label>
+                <textarea class="form-control" id="avisCommentaire" rows="5" required></textarea>
+              </div>
+              <div class="mt-4">
+                <button type="submit" class="btn btn-alphait-accent btn-lg w-100">
+                  Envoyer mon avis
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="footer-alphait">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-md-4">
+          <h5>Alpha<span class="text-accent">IT</span></h5>
+          <p class="small">Des solutions informatiques fiables pour les entreprises qui veulent avancer sereinement.</p>
+        </div>
+        <div class="col-md-4">
+          <h5>Navigation</h5>
+          <ul class="list-unstyled">
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="about.html">À propos</a></li>
+            <li><a href="pricing.html">Tarifs</a></li>
+            <li><a href="signin.html">Connexion</a></li>
+          </ul>
+        </div>
+        <div class="col-md-4">
+          <h5>Contact</h5>
+          <ul class="list-unstyled small">
+            <li><i class="bi bi-envelope me-2"></i>contact@alphait.com</li>
+            <li><i class="bi bi-telephone me-2"></i>+509 5595-8911</li>
+            <li><i class="bi bi-geo-alt me-2"></i>Limonade, Haïti</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom text-center">
+        &copy; 2026 AlphaIT. Tous droits réservés.
+      </div>
+    </div>
+  </footer>
+
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="js/nav-guard.js"></script>
+  <script src="js/dark-mode.js"></script>
+  <script src="js/temoignages.js"></script>
+  <script src="js/contact.js"></script>
+</body>
+</html>

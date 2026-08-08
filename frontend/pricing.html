@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tarifs | AlphaIT</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="vendor/bootstrap-icons/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ================= NAVBAR ================= -->
+  <nav class="navbar navbar-expand-lg navbar-alphait sticky-top">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">Alpha<span>IT</span></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navMenu">
+        <ul class="navbar-nav ms-auto align-items-lg-center">
+          <li class="nav-item"><a class="nav-link" href="index.html">Accueil</a></li>
+          <li class="nav-item"><a class="nav-link" href="about.html">À propos</a></li>
+          <li class="nav-item"><a class="nav-link active" href="pricing.html">Tarifs</a></li>
+          <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+          <li class="nav-item"><a class="nav-link" href="signin.html">Connexion</a></li>
+          <li class="nav-item">
+  <a class="nav-link d-none" href="admin.html" id="adminNavLink">
+    <i class="bi bi-speedometer2 me-1"></i>Tableau de bord
+  </a>
+</li>
+<li class="nav-item ms-lg-2">
+  <button class="theme-toggle-btn" id="themeToggleBtn" title="Changer de thème">
+    <i class="bi bi-moon-stars"></i>
+  </button>
+</li>
+          <li class="nav-item ms-lg-2 mt-2 mt-lg-0">
+            <a class="btn btn-alphait-accent" href="paynow.html">Payer maintenant</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ================= EN-TETE ================= -->
+  <header class="hero-alphait" style="padding: 4rem 0;">
+    <div class="container">
+      <div class="eyebrow mb-3">Nos tarifs</div>
+      <h1 class="mb-3">Des prix clairs, adaptés à vos besoins</h1>
+      <p class="lead mb-0">Sélectionnez un ou plusieurs services ci-dessous pour voir le montant total.</p>
+    </div>
+  </header>
+
+  <section class="py-4 border-bottom">
+  <div class="container">
+    <div class="row g-3 align-items-center">
+      <div class="col-md-7">
+        <div class="input-group">
+          <span class="input-group-text bg-white"><i class="bi bi-search"></i></span>
+          <input type="text" class="form-control" id="searchInput" placeholder="Rechercher un service...">
+        </div>
+      </div>
+      <div class="col-md-5">
+        <select class="form-select" id="categoryFilter">
+          <option value="tous">Toutes les catégories</option>
+          <option value="Développement">Développement</option>
+          <option value="Données">Données</option>
+          <option value="Sécurité">Sécurité</option>
+        </select>
+      </div>
+    </div>
+  </div>
+</section>
+
+  <!-- ================= SERVICES / PRIX ================= -->
+  <section class="py-5">
+    <div class="container">
+      <div class="row g-4" id="servicesRow">
+
+        <div class="col-md-6 col-lg-4 service-item" data-nom="développement web" data-categorie="Développement">
+  <div class="service-card h-100">
+    <div class="d-flex justify-content-between align-items-start mb-3">
+      <div class="service-icon mb-0"><i class="bi bi-code-slash"></i></div>
+              <div class="form-check">
+                <input class="form-check-input service-checkbox" type="checkbox"
+                       data-name="Développement Web" data-price="800" id="srv1">
+              </div>
+            </div>
+            <h5>Développement Web</h5>
+            <p class="text-muted small">Création de site web sur mesure, responsive et optimisé.</p>
+            <div class="fs-4 fw-bold text-accent">800 $</div>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4 service-item" data-nom="base de données" data-categorie="Données">
+  <div class="service-card h-100">
+    <div class="d-flex justify-content-between align-items-start mb-3">
+      <div class="service-icon mb-0"><i class="bi bi-code-slash"></i></div>
+              <div class="form-check">
+                <input class="form-check-input service-checkbox" type="checkbox"
+                       data-name="Base de données" data-price="500" id="srv2">
+              </div>
+            </div>
+            <h5>Base de données</h5>
+            <p class="text-muted small">Conception SQL relationnelle, structurée et performante.</p>
+            <div class="fs-4 fw-bold text-accent">500 $</div>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4 service-item" data-nom="Sécurité informatique" data-categorie="Sécurité">
+  <div class="service-card h-100">
+    <div class="d-flex justify-content-between align-items-start mb-3">
+      <div class="service-icon mb-0"><i class="bi bi-code-slash"></i></div>
+              <div class="form-check">
+                <input class="form-check-input service-checkbox" type="checkbox"
+                       data-name="Sécurité informatique" data-price="700" id="srv3">
+              </div>
+            </div>
+            <h5>Sécurité informatique</h5>
+            <p class="text-muted small">Audit complet de sécurité et recommandations de protection.</p>
+            <div class="fs-4 fw-bold text-accent">700 $</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ================= RECAPITULATIF ================= -->
+      <div class="row justify-content-center mt-5">
+        <div class="col-lg-6">
+          <div class="testimonial-card">
+            <h5 class="mb-3">Récapitulatif de votre sélection</h5>
+            <ul id="selectedList" class="list-unstyled mb-3">
+              <li class="text-muted small">Aucun service sélectionné</li>
+            </ul>
+            <div class="d-flex justify-content-between align-items-center border-top pt-3">
+              <span class="fw-semibold">Montant total</span>
+              <span class="fs-3 fw-bold text-accent" id="totalPrice">0 $</span>
+            </div>
+            <a href="paynow.html" class="btn btn-alphait-accent btn-lg w-100 mt-4" id="payBtn">
+              Payer maintenant
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="footer-alphait">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-md-4">
+          <h5>Alpha<span class="text-accent">IT</span></h5>
+          <p class="small">Des solutions informatiques fiables pour les entreprises qui veulent avancer sereinement.</p>
+        </div>
+        <div class="col-md-4">
+          <h5>Navigation</h5>
+          <ul class="list-unstyled">
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="about.html">À propos</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="signin.html">Connexion</a></li>
+          </ul>
+        </div>
+        <div class="col-md-4">
+          <h5>Contact</h5>
+          <ul class="list-unstyled small">
+            <li><i class="bi bi-envelope me-2"></i>contact@alphait.com</li>
+            <li><i class="bi bi-telephone me-2"></i>+509 5595-8911</li>
+            <li><i class="bi bi-geo-alt me-2"></i>Limonade, Haïti</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom text-center">
+        &copy; 2026 AlphaIT. Tous droits réservés.
+      </div>
+    </div>
+  </footer>
+
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="js/nav-guard.js"></script>
+  <script src="js/dark-mode.js"></script>
+  <script src="js/pricing.js"></script>
+
+</body>
+</html>

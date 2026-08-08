@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Connexion | AlphaIT</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="vendor/bootstrap-icons/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ================= NAVBAR ================= -->
+  <nav class="navbar navbar-expand-lg navbar-alphait sticky-top">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">Alpha<span>IT</span></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navMenu">
+        <ul class="navbar-nav ms-auto align-items-lg-center">
+          <li class="nav-item"><a class="nav-link" href="index.html">Accueil</a></li>
+          <li class="nav-item"><a class="nav-link" href="about.html">À propos</a></li>
+          <li class="nav-item"><a class="nav-link" href="pricing.html">Tarifs</a></li>
+          <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+          <li class="nav-item"><a class="nav-link active" href="signin.html">Connexion</a></li>
+          <li class="nav-item">
+  <a class="nav-link d-none" href="admin.html" id="adminNavLink">
+    <i class="bi bi-speedometer2 me-1"></i>Tableau de bord
+  </a>
+</li>
+<li class="nav-item ms-lg-2">
+  <button class="theme-toggle-btn" id="themeToggleBtn" title="Changer de thème">
+    <i class="bi bi-moon-stars"></i>
+  </button>
+</li>
+          <li class="nav-item ms-lg-2 mt-2 mt-lg-0">
+            <a class="btn btn-alphait-accent" href="paynow.html">Payer maintenant</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ================= SECTION AUTHENTIFICATION ================= -->
+  <section class="py-5" style="background-color: var(--alphait-bg-light); min-height: 80vh;">
+    <div class="container py-4">
+      <div class="row justify-content-center">
+        <div class="col-lg-6">
+
+          <div class="testimonial-card" style="border-left: none; border-top: 4px solid var(--alphait-accent);">
+
+            <!-- Onglets Connexion / Inscription -->
+            <ul class="nav nav-pills mb-4 justify-content-center gap-2" id="authTabs" role="tablist">
+              <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="tab-login-btn" data-bs-toggle="pill"
+                        data-bs-target="#tab-login" type="button" role="tab">
+                  Connexion
+                </button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link" id="tab-register-btn" data-bs-toggle="pill"
+                        data-bs-target="#tab-register" type="button" role="tab">
+                  Créer un compte
+                </button>
+              </li>
+            </ul>
+
+            <!-- Alerte de retour (succès / erreur) -->
+            <div class="alert d-none" id="authAlert" role="alert"></div>
+
+            <div class="tab-content" id="authTabsContent">
+
+              <!-- ============ CONNEXION ============ -->
+              <div class="tab-pane fade show active" id="tab-login" role="tabpanel">
+                <form id="loginForm" novalidate>
+                  <div class="mb-3">
+                    <label for="loginEmail" class="form-label">Courriel</label>
+                    <input type="email" class="form-control" id="loginEmail" required>
+                    <div class="invalid-feedback">Veuillez indiquer un courriel valide.</div>
+                  </div>
+                  <div class="mb-2">
+                    <label for="loginPassword" class="form-label">Mot de passe</label>
+                    <input type="password" class="form-control" id="loginPassword" required minlength="6">
+                    <div class="invalid-feedback">Le mot de passe doit contenir au moins 6 caractères.</div>
+                  </div>
+                  <div class="text-end mb-3">
+                    <a href="#" class="small" data-bs-toggle="modal" data-bs-target="#resetModal">
+                      Mot de passe oublié ?
+                    </a>
+                  </div>
+                  <button type="submit" class="btn btn-alphait-accent btn-lg w-100">Se connecter</button>
+                </form>
+              </div>
+
+              <!-- ============ INSCRIPTION ============ -->
+              <div class="tab-pane fade" id="tab-register" role="tabpanel">
+                <form id="registerForm" novalidate>
+                  <div class="row g-3">
+                    <div class="col-md-6">
+                      <label for="regNom" class="form-label">Nom</label>
+                      <input type="text" class="form-control" id="regNom" required>
+                      <div class="invalid-feedback">Champ requis.</div>
+                    </div>
+                    <div class="col-md-6">
+                      <label for="regPrenom" class="form-label">Prénom</label>
+                      <input type="text" class="form-control" id="regPrenom" required>
+                      <div class="invalid-feedback">Champ requis.</div>
+                    </div>
+                    <div class="col-12">
+                      <label for="regEmail" class="form-label">Courriel</label>
+                      <input type="email" class="form-control" id="regEmail" required>
+                      <div class="invalid-feedback">Veuillez indiquer un courriel valide.</div>
+                    </div>
+                    <div class="col-12">
+                      <label for="regPassword" class="form-label">Mot de passe</label>
+                      <input type="password" class="form-control" id="regPassword" required minlength="6">
+                      <div class="invalid-feedback">Le mot de passe doit contenir au moins 6 caractères.</div>
+                    </div>
+                    <div class="col-12">
+                      <label for="regPasswordConfirm" class="form-label">Confirmer le mot de passe</label>
+                      <input type="password" class="form-control" id="regPasswordConfirm" required>
+                      <div class="invalid-feedback">Les mots de passe ne correspondent pas.</div>
+                    </div>
+                    <div class="col-12 mt-2">
+                      <button type="submit" class="btn btn-alphait-accent btn-lg w-100">Créer mon compte</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= MODAL: reinitialisation mot de passe ================= -->
+  <div class="modal fade" id="resetModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Réinitialiser le mot de passe</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <p class="text-muted small">
+  Indiquez votre courriel, un lien de réinitialisation vous sera envoyé.
+  <br><span class="text-warning">Pensez à vérifier vos courriels indésirables (spam).</span>
+</p>
+          <form id="resetForm" novalidate>
+            <div class="mb-3">
+              <label for="resetEmail" class="form-label">Courriel</label>
+              <input type="email" class="form-control" id="resetEmail" required>
+            </div>
+            <button type="submit" class="btn btn-alphait-accent w-100">Envoyer le lien</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="footer-alphait">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-md-4">
+          <h5>Alpha<span class="text-accent">IT</span></h5>
+          <p class="small">Des solutions informatiques fiables pour les entreprises qui veulent avancer sereinement.</p>
+        </div>
+        <div class="col-md-4">
+          <h5>Navigation</h5>
+          <ul class="list-unstyled">
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="about.html">À propos</a></li>
+            <li><a href="pricing.html">Tarifs</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="col-md-4">
+          <h5>Contact</h5>
+          <ul class="list-unstyled small">
+            <li><i class="bi bi-envelope me-2"></i>contact@alphait.com</li>
+            <li><i class="bi bi-telephone me-2"></i>+509 5595-8911</li>
+            <li><i class="bi bi-geo-alt me-2"></i>Limonade, Haïti</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom text-center">
+        &copy; 2026 AlphaIT. Tous droits réservés.
+      </div>
+    </div>
+  </footer>
+
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="js/nav-guard.js"></script>
+  <script src="js/dark-mode.js"></script>
+  <script src="js/auth.js"></script>
+
+</body>
+</html>
