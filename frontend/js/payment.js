@@ -5,8 +5,7 @@
 
 const API_URL = 'https://alpha-production-63bd.up.railway.app/api';
 
-// ⚠️ Remplacez par VOTRE clé PUBLIQUE Stripe (pk_test_...)
-const stripe = Stripe('pk_test_VOTRE_CLE_PUBLIQUE_ICI');
+const stripe = Stripe('pk_test_51TxeFrC3f5A25o4tBbJSULNNUDelHKmZbOh8kk2ciGZJHMlknm5OHTULyVNLPCO1NJiZPPqxiJ7qsJXlYBN8aXxT00k4lwZgsP');
 const elements = stripe.elements();
 
 const estModeSombre = localStorage.getItem('alphait_theme') === 'dark';
