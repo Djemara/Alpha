@@ -15,7 +15,18 @@ app.use(cors());
 app.use(express.json());
 
 const path = require('path');
-app.use(express.static(path.join(process.cwd(), '../frontend')));
+
+// Sa a ap jwenn dosye frontend lan kit se an lokal, kit se sou Railway
+const frontendPath = path.resolve(process.cwd(), '..', 'frontend');
+
+// Sèvi lòt fichye yo (CSS, JS)
+app.use(express.static(frontendPath));
+
+// Fòse paj akèy la louvri index.html nèt
+app.get('/', (req, res) => {
+  res.sendFile(path.join(frontendPath, 'index.html'));
+});
+
 
 
 
