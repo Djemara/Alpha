@@ -3,7 +3,7 @@
 // et gère l'envoi d'un nouvel avis (page index.html)
 // ============================================
 
-const API_URL = 'https://railway.app';
+const API_URL = 'https://alpha-production-63bd.up.railway.app/api';
 
 document.addEventListener('DOMContentLoaded', function () {
   const inner = document.getElementById('testimonialInner');
