@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Route Express à créer : POST /api/auth/login
     // Retournera un token (JWT) + le rôle de l'utilisateur (admin ou client)
-    fetch('http://localhost:5000/api/auth/login', {
+    fetch('https://railway.app', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(credentials)
@@ -84,7 +84,7 @@ document.addEventListener('DOMContentLoaded', function () {
     };
 
     // Route Express à créer : POST /api/auth/register
-    fetch('http://localhost:5000/api/auth/register', {
+    fetch('https://railway.app', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(newUser)
@@ -109,7 +109,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const email = document.getElementById('resetEmail').value.trim();
 
     // Route Express à créer : POST /api/auth/reset-password
-    fetch('http://localhost:5000/api/auth/reset-password', {
+    fetch('https://railway.app', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email })
