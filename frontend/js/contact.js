@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function () {
   // Envoie les données du formulaire au serveur (API back-end)
  
   function envoyerMessage(data) {
-    fetch('http://localhost:5000/api/contact', {
+    fetch('https://railway.app', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data)
