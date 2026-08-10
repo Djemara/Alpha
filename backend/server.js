@@ -16,16 +16,17 @@ app.use(express.json());
 
 const path = require('path');
 
-// Sa a ap jwenn dosye frontend lan kit se an lokal, kit se sou Railway
-const frontendPath = path.resolve(process.cwd(), '..', 'frontend');
+// __dirname reprezante dosye 'backend' la. Nou monte yon nivo (..) pou n al nan 'frontend'
+const frontendPath = path.join(__dirname, '..', 'frontend');
 
 // Sèvi lòt fichye yo (CSS, JS)
 app.use(express.static(frontendPath));
 
-// Fòse paj akèy la louvri index.html nèt
+// Fòse paj akèy la montre index.html nèt
 app.get('/', (req, res) => {
   res.sendFile(path.join(frontendPath, 'index.html'));
 });
+
 
 
 
