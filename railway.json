@@ -1,11 +1,12 @@
 {
   "$schema": "https://railway.app",
   "build": {
-    "rootStartCommand": "npm start",
-    "watchPatterns": ["backend/**"]
+    "builder": "NIXPACKS",
+    "rootDirectory": "/backend"
   },
   "deploy": {
     "startCommand": "npm start",
     "restartPolicyType": "ON_FAILURE"
   }
 }
+
