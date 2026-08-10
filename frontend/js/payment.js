@@ -3,7 +3,7 @@
 // traitement du paiement RÉEL via Stripe (page paynow.html)
 // ============================================
 
-const API_URL = 'http://localhost:5000/api';
+const API_URL = 'https://railway.app';
 const stripe = Stripe('pk_test_51TxeFrC3f5A25o4tBbJSULNNUDelHKmZbOh8kk2ciGZJHMlknm5OHTULyVNLPCO1NJiZPPqxiJ7qsJXlYBN8aXxT00k4lwZgsP');
 const elements = stripe.elements();
 
