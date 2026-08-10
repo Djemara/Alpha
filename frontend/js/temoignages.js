@@ -3,7 +3,7 @@
 // et gère l'envoi d'un nouvel avis (page index.html)
 // ============================================
 
-const API_URL = 'http://localhost:5000/api';
+const API_URL = 'https://railway.app';
 
 document.addEventListener('DOMContentLoaded', function () {
   const inner = document.getElementById('testimonialInner');
