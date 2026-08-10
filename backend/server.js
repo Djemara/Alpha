@@ -16,11 +16,9 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// N ap di Express pou l al chèche dosye frontend lan dirèkteman nan rasin pwojè a nèt
-app.use(express.static('../frontend'));
-
+app.use(express.static(path.join(__dirname, '../frontend')));
 app.get('/', (req, res) => {
-  res.sendFile(path.resolve('../frontend/index.html'));
+  res.sendFile(path.join(__dirname, '../frontend/index.html'));
 });
 
 
