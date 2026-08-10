@@ -2,7 +2,7 @@
 // ADMIN.JS - Logique du tableau de bord administrateur
 // ============================================
 
-const API_URL = 'http://localhost:5000/api';
+const API_URL = 'https://railway.app';
 
 document.addEventListener('DOMContentLoaded', function () {
   const token = localStorage.getItem('alphait_token');
