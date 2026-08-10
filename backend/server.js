@@ -14,18 +14,13 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const path = require('path');
+// N ap di Express pou l al chèche dosye frontend lan dirèkteman nan rasin pwojè a nèt
+app.use(express.static('../frontend'));
 
-// __dirname reprezante dosye 'backend' la. Nou monte yon nivo (..) pou n al nan 'frontend'
-const frontendPath = path.join(__dirname, '..', 'frontend');
-
-// Sèvi lòt fichye yo (CSS, JS)
-app.use(express.static(frontendPath));
-
-// Fòse paj akèy la montre index.html nèt
 app.get('/', (req, res) => {
-  res.sendFile(path.join(frontendPath, 'index.html'));
+  res.sendFile(path.resolve('../frontend/index.html'));
 });
+
 
 
 
