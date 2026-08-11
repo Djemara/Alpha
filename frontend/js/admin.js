@@ -2,7 +2,7 @@
 // ADMIN.JS - Logique du tableau de bord administrateur
 // ============================================
 
-const API_URL = 'https://alpha-production-63bd.up.railway.app/api';
+const API_URL = 'http://localhost:5000/api';
 
 document.addEventListener('DOMContentLoaded', function () {
   const token = localStorage.getItem('alphait_token');
