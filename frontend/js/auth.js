@@ -3,22 +3,21 @@
 // réinitialisation du mot de passe (signin.html)
 // ============================================
 
-const API_URL = 'https://alpha-production-63bd.up.railway.app/api';
-
 document.addEventListener('DOMContentLoaded', function () {
   const loginForm = document.getElementById('loginForm');
   const registerForm = document.getElementById('registerForm');
   const resetForm = document.getElementById('resetForm');
   const authAlert = document.getElementById('authAlert');
 
+  // -------- Affiche un message dans l'encadré d'alerte --------
   function afficherAlerte(message, type = 'success') {
-    authAlert.textContent = message;
-    authAlert.className = `alert alert-${type}`;
-    authAlert.classList.remove('d-none');
-    authAlert.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    setTimeout(() => authAlert.classList.add('d-none'), 5000);
-  }
+  authAlert.textContent = message;
+  authAlert.className = `alert alert-${type}`;
+  authAlert.classList.remove('d-none');
+  authAlert.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
+  setTimeout(() => authAlert.classList.add('d-none'), 5000);
+}
   // -------- CONNEXION --------
   loginForm.addEventListener('submit', function (event) {
     event.preventDefault();
@@ -33,7 +32,9 @@ document.addEventListener('DOMContentLoaded', function () {
       mot_de_passe: document.getElementById('loginPassword').value
     };
 
-    fetch(`${API_URL}/auth/login`, {
+    // Route Express à créer : POST /api/auth/login
+    // Retournera un token (JWT) + le rôle de l'utilisateur (admin ou client)
+    fetch('http://localhost:5000/api/auth/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(credentials)
@@ -43,13 +44,14 @@ document.addEventListener('DOMContentLoaded', function () {
         return res.json();
       })
       .then(data => {
-        localStorage.setItem('alphait_token', data.token);
-        localStorage.setItem('alphait_role', data.role);
-        afficherAlerte('Connexion réussie. Redirection...', 'success');
+  localStorage.setItem('alphait_token', data.token);
+  localStorage.setItem('alphait_role', data.role);
+  afficherAlerte('Connexion réussie. Redirection...', 'success');
 
-        const destination = data.role === 'admin' ? 'admin.html' : 'index.html';
-        setTimeout(() => window.location.href = destination, 1200);
-      })
+  // Redirection selon le rôle : admin va sur le tableau de bord, client sur l'accueil
+  const destination = data.role === 'admin' ? 'admin.html' : 'index.html';
+  setTimeout(() => window.location.href = destination, 1200);
+})
       .catch(err => afficherAlerte(err.message, 'danger'));
   });
 
@@ -61,6 +63,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const passwordConfirm = document.getElementById('regPasswordConfirm').value;
     const passwordConfirmField = document.getElementById('regPasswordConfirm');
 
+    // Validation personnalisée : les mots de passe doivent correspondre
     if (password !== passwordConfirm) {
       passwordConfirmField.setCustomValidity('Les mots de passe ne correspondent pas.');
     } else {
@@ -77,10 +80,11 @@ document.addEventListener('DOMContentLoaded', function () {
       prenom: document.getElementById('regPrenom').value.trim(),
       email: document.getElementById('regEmail').value.trim(),
       mot_de_passe: password,
-      role: 'client'
+      role: 'client' // Par défaut, tout nouveau compte est un client
     };
 
-    fetch(`${API_URL}/auth/register`, {
+    // Route Express à créer : POST /api/auth/register
+    fetch('http://localhost:5000/api/auth/register', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(newUser)
@@ -104,7 +108,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const email = document.getElementById('resetEmail').value.trim();
 
-    fetch(`${API_URL}/auth/reset-password`, {
+    // Route Express à créer : POST /api/auth/reset-password
+    fetch('http://localhost:5000/api/auth/reset-password', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email })
@@ -119,8 +124,11 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 });
 
+// -------- DECONNEXION --------
+// Fonction réutilisable depuis n'importe quelle page (ex: bouton "Déconnexion")
 function deconnecterUtilisateur() {
   localStorage.removeItem('alphait_token');
   localStorage.removeItem('alphait_role');
   window.location.href = 'signin.html';
 }
+
