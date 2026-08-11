@@ -3,7 +3,7 @@
 // réinitialisation du mot de passe
 // ============================================
 
-const API_URL = 'https://railway.app';
+const API_URL = 'http://localhost:5000/api';
 
 document.addEventListener('DOMContentLoaded', function () {
   const form = document.getElementById('resetPasswordForm');
