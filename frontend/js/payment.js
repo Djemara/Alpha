@@ -3,11 +3,12 @@
 // traitement du paiement RÉEL via Stripe (page paynow.html)
 // ============================================
 
-const API_URL = 'https://alpha-production-63bd.up.railway.app/api';
-
+const API_URL = 'http://localhost:5000/api';
 const stripe = Stripe('pk_test_51TxeFrC3f5A25o4tBbJSULNNUDelHKmZbOh8kk2ciGZJHMlknm5OHTULyVNLPCO1NJiZPPqxiJ7qsJXlYBN8aXxT00k4lwZgsP');
 const elements = stripe.elements();
 
+
+// Détecte si le mode sombre est actif pour adapter les couleurs du Card Element
 const estModeSombre = localStorage.getItem('alphait_theme') === 'dark';
 
 const cardElement = elements.create('card', {
@@ -20,28 +21,31 @@ const cardElement = elements.create('card', {
         color: estModeSombre ? '#9CA6B5' : '#6B7280'
       }
     },
-    invalid: { color: '#2DD4BF' }
+    invalid: {
+      color: '#dc3545'
+    }
   }
 });
-
 document.addEventListener('DOMContentLoaded', function () {
   cardElement.mount('#card-element');
+  cardElement.mount('#card-element');
 
-  document.addEventListener('themechange', function (event) {
-    cardElement.update({
-      style: {
-        base: {
-          color: event.detail.sombre ? '#E8ECF3' : '#1A1F2B',
-          fontFamily: '"Inter", sans-serif',
-          fontSize: '16px',
-          '::placeholder': {
-            color: event.detail.sombre ? '#9CA6B5' : '#6B7280'
-          }
-        },
-        invalid: { color: '#2DD4BF' }
-      }
-    });
+// Met à jour les couleurs du Card Element si le thème change en direct
+document.addEventListener('themechange', function (event) {
+  cardElement.update({
+    style: {
+      base: {
+        color: event.detail.sombre ? '#E8ECF3' : '#1A1F2B',
+        fontFamily: '"Inter", sans-serif',
+        fontSize: '16px',
+        '::placeholder': {
+          color: event.detail.sombre ? '#9CA6B5' : '#6B7280'
+        }
+      },
+      invalid: { color: '#dc3545' }
+    }
   });
+});
 
   cardElement.on('change', function (event) {
     const displayError = document.getElementById('card-errors');
@@ -66,6 +70,7 @@ document.addEventListener('DOMContentLoaded', function () {
     'Authorization': 'Bearer ' + localStorage.getItem('alphait_token')
   };
 
+  // -------- Charge la sélection faite sur la page pricing.html --------
   function chargerSelection() {
     const data = localStorage.getItem('alphait_selection');
     selection = data ? JSON.parse(data) : [];
@@ -92,6 +97,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   chargerSelection();
 
+  // -------- Basculer entre Stripe et PayPal --------
   function basculerModePaiement() {
     if (payStripe.checked) {
       stripeFields.classList.remove('d-none');
@@ -105,6 +111,7 @@ document.addEventListener('DOMContentLoaded', function () {
   payStripe.addEventListener('change', basculerModePaiement);
   payPaypal.addEventListener('change', basculerModePaiement);
 
+  // -------- Soumission du paiement --------
   paymentForm.addEventListener('submit', async function (event) {
     event.preventDefault();
 
@@ -117,11 +124,13 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 
+  // -------- Paiement RÉEL via Stripe --------
   async function payerAvecStripe() {
     submitPayBtn.disabled = true;
     submitPayBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Traitement...';
 
     try {
+      // 1. Demander à notre back-end de créer un PaymentIntent Stripe
       const intentRes = await fetch(`${API_URL}/paiement/create-intent`, {
         method: 'POST',
         headers,
@@ -131,6 +140,8 @@ document.addEventListener('DOMContentLoaded', function () {
       if (!intentRes.ok) throw new Error('Impossible de préparer le paiement.');
       const { client_secret } = await intentRes.json();
 
+      // 2. Confirmer le paiement DIRECTEMENT avec Stripe (le numéro de carte
+      //    ne passe jamais par notre serveur, seulement par Stripe)
       const cardName = document.getElementById('cardName').value;
 
       const result = await stripe.confirmCardPayment(client_secret, {
@@ -144,6 +155,7 @@ document.addEventListener('DOMContentLoaded', function () {
         throw new Error(result.error.message);
       }
 
+      // 3. Le paiement Stripe a réussi : on enregistre la commande dans notre BD
       const commande = {
         services: selection,
         montant_total: total,
@@ -169,80 +181,87 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
-  function afficherConfirmation(transactionId) {
-    document.getElementById('transactionId').textContent = transactionId;
-    const modal = new bootstrap.Modal(document.getElementById('confirmModal'));
-    modal.show();
+ function afficherConfirmation(transactionId) {
+  document.getElementById('transactionId').textContent = transactionId;
+  const modal = new bootstrap.Modal(document.getElementById('confirmModal'));
+  modal.show();
 
-    document.getElementById('downloadReceiptBtn').onclick = function () {
-      genererRecuPDF(transactionId);
-    };
+  // Prépare le téléchargement du reçu PDF (avant d'effacer la sélection)
+  document.getElementById('downloadReceiptBtn').onclick = function () {
+    genererRecuPDF(transactionId);
+  };
 
-    localStorage.removeItem('alphait_selection');
-  }
+  localStorage.removeItem('alphait_selection');
+}
 
-  function genererRecuPDF(transactionId) {
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF();
+// -------- Génère un reçu PDF téléchargeable --------
+function genererRecuPDF(transactionId) {
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
 
-    const dateActuelle = new Date().toLocaleDateString('fr-FR', {
-      year: 'numeric', month: 'long', day: 'numeric'
-    });
+  const dateActuelle = new Date().toLocaleDateString('fr-FR', {
+    year: 'numeric', month: 'long', day: 'numeric'
+  });
 
-    doc.setFillColor(15, 27, 45);
-    doc.rect(0, 0, 210, 30, 'F');
-    doc.setTextColor(255, 255, 255);
-    doc.setFontSize(20);
-    doc.text('AlphaIT', 15, 18);
-    doc.setFontSize(10);
-    doc.text('Reçu de paiement', 15, 25);
+  // En-tête
+  doc.setFillColor(15, 27, 45);
+  doc.rect(0, 0, 210, 30, 'F');
+  doc.setTextColor(255, 255, 255);
+  doc.setFontSize(20);
+  doc.text('AlphaIT', 15, 18);
+  doc.setFontSize(10);
+  doc.text('Reçu de paiement', 15, 25);
 
-    doc.setTextColor(30, 30, 30);
-    doc.setFontSize(11);
-    let y = 45;
-    doc.text(`Date : ${dateActuelle}`, 15, y);
+  // Infos générales
+  doc.setTextColor(30, 30, 30);
+  doc.setFontSize(11);
+  let y = 45;
+  doc.text(`Date : ${dateActuelle}`, 15, y);
+  y += 7;
+  doc.text(`Numéro de transaction : ${transactionId}`, 15, y);
+  y += 12;
+
+  // Tableau des services
+  doc.setFontSize(12);
+  doc.setFont(undefined, 'bold');
+  doc.text('Services achetés', 15, y);
+  y += 8;
+
+  doc.setFont(undefined, 'normal');
+  doc.setFontSize(10);
+  doc.setDrawColor(200, 200, 200);
+  doc.line(15, y, 195, y);
+  y += 6;
+
+  selection.forEach(item => {
+    doc.text(item.nom, 15, y);
+    doc.text(`${item.prix} $`, 180, y, { align: 'right' });
     y += 7;
-    doc.text(`Numéro de transaction : ${transactionId}`, 15, y);
-    y += 12;
+  });
 
-    doc.setFontSize(12);
-    doc.setFont(undefined, 'bold');
-    doc.text('Services achetés', 15, y);
-    y += 8;
+  y += 3;
+  doc.line(15, y, 195, y);
+  y += 8;
 
-    doc.setFont(undefined, 'normal');
-    doc.setFontSize(10);
-    doc.setDrawColor(200, 200, 200);
-    doc.line(15, y, 195, y);
-    y += 6;
+  doc.setFont(undefined, 'bold');
+  doc.setFontSize(12);
+  doc.text('Total payé', 15, y);
+  doc.text(`${total} $`, 180, y, { align: 'right' });
 
-    selection.forEach(item => {
-      doc.text(item.nom, 15, y);
-      doc.text(`${item.prix} $`, 180, y, { align: 'right' });
-      y += 7;
-    });
+  // Pied de page
+  doc.setFont(undefined, 'normal');
+  doc.setFontSize(9);
+  doc.setTextColor(120, 120, 120);
+  doc.text('Merci pour votre confiance. — AlphaIT', 15, 280);
 
-    y += 3;
-    doc.line(15, y, 195, y);
-    y += 8;
-
-    doc.setFont(undefined, 'bold');
-    doc.setFontSize(12);
-    doc.text('Total payé', 15, y);
-    doc.text(`${total} $`, 180, y, { align: 'right' });
-
-    doc.setFont(undefined, 'normal');
-    doc.setFontSize(9);
-    doc.setTextColor(120, 120, 120);
-    doc.text('Merci pour votre confiance. — AlphaIT', 15, 280);
-
-    doc.save(`AlphaIT_recu_${transactionId}.pdf`);
-  }
+  doc.save(`AlphaIT_recu_${transactionId}.pdf`);
+}
 
   function afficherErreur(message) {
-    paymentAlert.textContent = message;
-    paymentAlert.className = 'alert alert-danger';
-    paymentAlert.classList.remove('d-none');
-    setTimeout(() => paymentAlert.classList.add('d-none'), 5000);
-  }
+  paymentAlert.textContent = message;
+  paymentAlert.className = 'alert alert-danger';
+  paymentAlert.classList.remove('d-none');
+
+  setTimeout(() => paymentAlert.classList.add('d-none'), 5000);
+}
 });
