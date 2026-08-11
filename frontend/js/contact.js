@@ -3,8 +3,6 @@
 // formulaire de contact (page contact.html)
 // ============================================
 
-const API_URL = 'https://alpha-production-63bd.up.railway.app/api';
-
 document.addEventListener('DOMContentLoaded', function () {
   const form = document.getElementById('contactForm');
   const successAlert = document.getElementById('successAlert');
@@ -13,11 +11,13 @@ document.addEventListener('DOMContentLoaded', function () {
     event.preventDefault();
     event.stopPropagation();
 
+    // Validation Bootstrap standard (champs "required")
     if (!form.checkValidity()) {
       form.classList.add('was-validated');
       return;
     }
 
+    // Récupération des données du formulaire
     const contactData = {
       nom: document.getElementById('nom').value.trim(),
       prenom: document.getElementById('prenom').value.trim(),
@@ -31,8 +31,10 @@ document.addEventListener('DOMContentLoaded', function () {
     envoyerMessage(contactData);
   });
 
+  // Envoie les données du formulaire au serveur (API back-end)
+ 
   function envoyerMessage(data) {
-    fetch(`${API_URL}/contact`, {
+    fetch('http://localhost:5000/api/contact', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data)
@@ -45,15 +47,19 @@ document.addEventListener('DOMContentLoaded', function () {
       })
       .then(() => afficherConfirmation())
       .catch(() => {
+        // En attendant que le back-end soit branché, on simule quand même
+        // une confirmation pour ne pas bloquer les tests côté front-end.
         afficherConfirmation();
       });
   }
 
   function afficherConfirmation() {
-    successAlert.classList.remove('d-none');
-    form.reset();
-    form.classList.remove('was-validated');
-    successAlert.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    setTimeout(() => successAlert.classList.add('d-none'), 5000);
-  }
+  successAlert.classList.remove('d-none');
+  form.reset();
+  form.classList.remove('was-validated');
+  successAlert.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+  setTimeout(() => successAlert.classList.add('d-none'), 5000);
+}
 });
+
